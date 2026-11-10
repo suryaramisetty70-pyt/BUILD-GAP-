@@ -19,3 +19,13 @@ test('CSV escapes commas quotes newlines and formula prefixes',()=>{const p=pair
 test('validator rejects malformed imports without partial acceptance',()=>{for(const d of [null,[],[SAMPLE_CASES[0]],SAMPLE_CASES.map(c=>({...c,split:'train'})),SAMPLE_CASES.map(c=>({...c,id:'same'}))])assert.throws(()=>validateDataset(d));});
 test('validator rejects unknown checks, unbounded values, and malformed JSON fields',()=>{for(const check of [{type:'magic',dimension:'Correctness'},{type:'contains',value:'',dimension:'Correctness'},{type:'words',min:20,max:3,dimension:'Instruction adherence'},{type:'json',fields:[],dimension:'Response format'},{type:'unique_steps',max:0,dimension:'Planner control'}])assert.throws(()=>validateDataset([{...SAMPLE_CASES[0],checks:[check]},SAMPLE_CASES[3]]));});
 test('metrics on empty input are finite and interval bounded',()=>{const m=metrics([]);assert.equal(m.total,0);assert.equal(m.afterRate,0);assert.deepEqual(m.afterInterval,[0,0]);const m2=metrics(pairCases(SAMPLE_CASES));assert(m2.afterInterval[0]>=0&&m2.afterInterval[1]<=1);});
+test('patch suggestions ignore tasks with no collected baseline output', () => {
+  const pairs = pairCases([
+    {...SAMPLE_CASES[0], split:'train', baseline:'wrong'},
+    {...SAMPLE_CASES[0], split:'train', baseline:undefined,
+      checks:[{type:'json', keys:['name'], dimension:'Response format'}]},
+  ]);
+  const patch = refine(BASE_PROMPT, pairs);
+  assert.match(patch, /Verify the final answer/);
+  assert.doesNotMatch(patch, /valid object/);
+});
