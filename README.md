@@ -16,10 +16,12 @@ Create a **Web Service** from this repository:
 | Start command | `npm start` |
 | Node version | `24` |
 | Health check | `/health` |
-| `TRUST_PROXY` environment variable | `1` for Render |
+| `TRUST_PROXY` environment variable | `1` behind a trusted proxy for custom domains |
 | `DATABASE_URL` | Your persistent PostgreSQL connection string, if using PostgreSQL |
 
 `render.yaml` supplies these settings as a Blueprint. It does not create a paid database or service. Enter database credentials only in your hosting dashboard, never in this repository.
+
+For the default `onrender.com` hostname, the server uses Render's automatically provided `RENDER_EXTERNAL_URL` to recognize HTTPS requests and validate their origin, including for services created without the Blueprint.
 
 **Persistence:** If `DATABASE_URL` is set, the app uses PostgreSQL and creates its record table automatically. Otherwise it uses SQLite at `DB_PATH` (default `./storage/gaplab.sqlite`). SQLite works on a local computer or on a persistent mounted volume. Render Free web services have an ephemeral filesystem, so local SQLite data will disappear when a service restarts or redeploys. Use an external persistent PostgreSQL database for durable data on a free web service, or a persistent volume on a host that supports one. The included Docker setup mounts `/data`.
 
