@@ -5,9 +5,18 @@ import {fileURLToPath} from 'node:url';
 import {handleApi} from './api.ts';
 export async function createServer(store){
  const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../dist/public');
+ const renderUrl=process.env.RENDER_EXTERNAL_URL;
+ const renderOrigin=renderUrl?new URL(renderUrl):null;
+ const trustProxy=process.env.TRUST_PROXY==='1';
  const server=http.createServer(async(req,res)=>{try{
-  const host=req.headers.host??'localhost';const forwarded=req.headers['x-forwarded-proto'];const protocol=process.env.TRUST_PROXY==='1'&&forwarded==='https'?'https':'http';
-  const url=new URL(req.url??'/',`${protocol}://${host}`);
+  const host=req.headers.host??'localhost';
+  const forwarded=req.headers['x-forwarded-proto'];
+  const protocol=trustProxy&&forwarded==='https'?'https':'http';
+  // Render terminates HTTPS before requests reach this server.
+  const origin=renderOrigin?.host===host.toLowerCase()?renderOrigin.origin:`${protocol}://${host}`;
+  const target=req.url??'/';
+  if(!target.startsWith('/')){res.writeHead(400);res.end('Invalid request target');return;}
+  const url=new URL(origin+target);
   if(url.pathname==='/health'){try{await store.read('health');res.writeHead(200,{'Content-Type':'application/json'});res.end(JSON.stringify({status:'ok',storage:'connected'}));}catch{res.writeHead(503,{'Content-Type':'application/json'});res.end(JSON.stringify({status:'unavailable'}));}return;}
   if(url.pathname==='/api/workspace'){
    let bytes=0;const chunks=[];for await(const c of req){bytes+=c.length;if(bytes>2000000){res.writeHead(413,{'Content-Type':'application/json'});res.end(JSON.stringify({error:'Request exceeds 2 MB.'}));return;}chunks.push(c);}
