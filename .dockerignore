@@ -1,0 +1,8 @@
+.git
+node_modules
+dist
+storage
+.wrangler
+.sites-runtime
+.env*
+outputs

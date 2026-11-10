@@ -1,0 +1,142 @@
+[
+  {
+    "category": "Question answering",
+    "task": "What is the capital of Japan? Return only the city name.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "Tokyo",
+        "dimension": "Correctness"
+      }
+    ],
+    "id": "sample-01",
+    "split": "train",
+    "provenance": "Synthetic task and human-authored reference; responses to be collected live."
+  },
+  {
+    "category": "Question answering",
+    "task": "What is the chemical symbol for gold? Return only the symbol.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "Au",
+        "dimension": "Correctness"
+      }
+    ],
+    "id": "sample-02",
+    "split": "train",
+    "provenance": "Synthetic task and human-authored reference; responses to be collected live."
+  },
+  {
+    "category": "Question answering",
+    "task": "Which planet is known as the Red Planet? Return only its name.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "Mars",
+        "dimension": "Correctness"
+      }
+    ],
+    "id": "sample-03",
+    "split": "train",
+    "provenance": "Synthetic task and human-authored reference; responses to be collected live."
+  },
+  {
+    "category": "Question answering",
+    "task": "What process lets plants turn sunlight into chemical energy? Return only the process name.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "photosynthesis",
+        "dimension": "Correctness"
+      }
+    ],
+    "id": "sample-04",
+    "split": "holdout",
+    "provenance": "Synthetic task and human-authored reference; responses to be collected live."
+  },
+  {
+    "category": "Information extraction",
+    "task": "Extract name and age from: \"Maya is 24 years old.\" Return a JSON object with name (string) and age (number).",
+    "checks": [
+      {
+        "type": "json",
+        "fields": {
+          "name": "Maya",
+          "age": 24
+        },
+        "keys": [
+          "name",
+          "age"
+        ],
+        "dimension": "Response format"
+      }
+    ],
+    "id": "sample-05",
+    "split": "train",
+    "provenance": "Synthetic task and human-authored reference; responses to be collected live."
+  },
+  {
+    "category": "Information extraction",
+    "task": "Extract city and country from: \"Chennai is in India.\" Return JSON with keys city and country.",
+    "checks": [
+      {
+        "type": "json",
+        "fields": {
+          "city": "Chennai",
+          "country": "India"
+        },
+        "keys": [
+          "city",
+          "country"
+        ],
+        "dimension": "Response format"
+      }
+    ],
+    "id": "sample-06",
+    "split": "train",
+    "provenance": "Synthetic task and human-authored reference; responses to be collected live."
+  },
+  {
+    "category": "Information extraction",
+    "task": "Extract product and price from: \"Notebook costs 80 rupees.\" Return JSON; price must be a number.",
+    "checks": [
+      {
+        "type": "json",
+        "fields": {
+          "product": "Notebook",
+          "price": 80
+        },
+        "keys": [
+          "product",
+          "price"
+        ],
+        "dimension": "Response format"
+      }
+    ],
+    "id": "sample-07",
+    "split": "train",
+    "provenance": "Synthetic task and human-authored reference; responses to be collected live."
+  },
+  {
+    "category": "Information extraction",
+    "task": "Extract name and role from: \"Arun works as a teacher.\" Return JSON with name and role.",
+    "checks": [
+      {
+        "type": "json",
+        "fields": {
+          "name": "Arun",
+          "role": "teacher"
+        },
+        "keys": [
+          "name",
+          "role"
+        ],
+        "dimension": "Response format"
+      }
+    ],
+    "id": "sample-08",
+    "split": "holdout",
+    "provenance": "Synthetic task and human-authored reference; responses to be collected live."
+  }
+]

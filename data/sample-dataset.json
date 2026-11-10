@@ -1,0 +1,392 @@
+[
+  {
+    "category": "Question answering",
+    "task": "What is the capital of Japan? Return only the city name.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "Tokyo",
+        "dimension": "Correctness"
+      }
+    ],
+    "baseline": "Tokyo",
+    "improved": "Tokyo",
+    "id": "sample-01",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Question answering",
+    "task": "What is the chemical symbol for gold? Return only the symbol.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "Au",
+        "dimension": "Correctness"
+      }
+    ],
+    "baseline": "Ag",
+    "improved": "Au",
+    "id": "sample-02",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Question answering",
+    "task": "Which planet is known as the Red Planet? Return only its name.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "Mars",
+        "dimension": "Correctness"
+      }
+    ],
+    "baseline": "The Red Planet is Mars.",
+    "improved": "Mars",
+    "id": "sample-03",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Question answering",
+    "task": "What process lets plants turn sunlight into chemical energy? Return only the process name.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "photosynthesis",
+        "dimension": "Correctness"
+      }
+    ],
+    "baseline": "photosynthesis",
+    "improved": "photosynthesis",
+    "id": "sample-04",
+    "split": "holdout",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Information extraction",
+    "task": "Extract name and age from: \"Maya is 24 years old.\" Return a JSON object with name (string) and age (number).",
+    "checks": [
+      {
+        "type": "json",
+        "fields": {
+          "name": "Maya",
+          "age": 24
+        },
+        "keys": [
+          "name",
+          "age"
+        ],
+        "dimension": "Response format"
+      }
+    ],
+    "baseline": "Maya, 24",
+    "improved": "{\"name\":\"Maya\",\"age\":24}",
+    "id": "sample-05",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Information extraction",
+    "task": "Extract city and country from: \"Chennai is in India.\" Return JSON with keys city and country.",
+    "checks": [
+      {
+        "type": "json",
+        "fields": {
+          "city": "Chennai",
+          "country": "India"
+        },
+        "keys": [
+          "city",
+          "country"
+        ],
+        "dimension": "Response format"
+      }
+    ],
+    "baseline": "{\"city\":\"Chennai\"}",
+    "improved": "{\"city\":\"Chennai\",\"country\":\"India\"}",
+    "id": "sample-06",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Information extraction",
+    "task": "Extract product and price from: \"Notebook costs 80 rupees.\" Return JSON; price must be a number.",
+    "checks": [
+      {
+        "type": "json",
+        "fields": {
+          "product": "Notebook",
+          "price": 80
+        },
+        "keys": [
+          "product",
+          "price"
+        ],
+        "dimension": "Response format"
+      }
+    ],
+    "baseline": "{\"product\":\"Notebook\",\"price\":\"80\"}",
+    "improved": "{\"product\":\"Notebook\",\"price\":80}",
+    "id": "sample-07",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Information extraction",
+    "task": "Extract name and role from: \"Arun works as a teacher.\" Return JSON with name and role.",
+    "checks": [
+      {
+        "type": "json",
+        "fields": {
+          "name": "Arun",
+          "role": "teacher"
+        },
+        "keys": [
+          "name",
+          "role"
+        ],
+        "dimension": "Response format"
+      }
+    ],
+    "baseline": "{\"name\":\"Arun\",\"role\":\"teacher\"}",
+    "improved": "{\"name\":\"Arun\",\"role\":\"teacher\"}",
+    "id": "sample-08",
+    "split": "holdout",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Reasoning",
+    "task": "A shop has 12 pens and sells 5. How many remain? Return only the number.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "7",
+        "dimension": "Correctness"
+      }
+    ],
+    "baseline": "17",
+    "improved": "7",
+    "id": "sample-09",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Reasoning",
+    "task": "A train covers 120 km in 2 hours. What is its average speed in km/h? Return only the number.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "60",
+        "dimension": "Correctness"
+      }
+    ],
+    "baseline": "60",
+    "improved": "60",
+    "id": "sample-10",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Reasoning",
+    "task": "Three boxes contain 4 apples each. How many apples in total? Return only the number.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "12",
+        "dimension": "Correctness"
+      }
+    ],
+    "baseline": "There are 12 apples.",
+    "improved": "12",
+    "id": "sample-11",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Reasoning",
+    "task": "A book costs 200 rupees with a 10 percent discount. Return only the numeric final price, without currency text.",
+    "checks": [
+      {
+        "type": "exact",
+        "value": "180",
+        "dimension": "Correctness"
+      }
+    ],
+    "baseline": "190",
+    "improved": "180 rupees",
+    "id": "sample-12",
+    "split": "holdout",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Text generation",
+    "task": "Explain evaporation in at most 12 words. Include the words liquid and gas.",
+    "checks": [
+      {
+        "type": "contains",
+        "value": "liquid",
+        "dimension": "Completeness"
+      },
+      {
+        "type": "contains",
+        "value": "gas",
+        "dimension": "Completeness"
+      },
+      {
+        "type": "words",
+        "max": 12,
+        "dimension": "Instruction adherence"
+      }
+    ],
+    "baseline": "Evaporation happens when water becomes vapour because it is heated by the sun and slowly rises into the air.",
+    "improved": "Evaporation changes a liquid into a gas.",
+    "id": "sample-13",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Text generation",
+    "task": "Write a welcome message in at most 8 words. Include welcome.",
+    "checks": [
+      {
+        "type": "contains",
+        "value": "welcome",
+        "dimension": "Completeness"
+      },
+      {
+        "type": "words",
+        "max": 8,
+        "dimension": "Instruction adherence"
+      }
+    ],
+    "baseline": "Welcome to our community!",
+    "improved": "Welcome! We are glad you are here.",
+    "id": "sample-14",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Text generation",
+    "task": "Explain recycling in at most 10 words. Include waste and reuse.",
+    "checks": [
+      {
+        "type": "contains",
+        "value": "waste",
+        "dimension": "Completeness"
+      },
+      {
+        "type": "contains",
+        "value": "reuse",
+        "dimension": "Completeness"
+      },
+      {
+        "type": "words",
+        "max": 10,
+        "dimension": "Instruction adherence"
+      }
+    ],
+    "baseline": "Recycling protects the environment.",
+    "improved": "Recycling processes waste so we can reuse materials.",
+    "id": "sample-15",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Text generation",
+    "task": "Write a study reminder in at most 7 words. Include study.",
+    "checks": [
+      {
+        "type": "contains",
+        "value": "study",
+        "dimension": "Completeness"
+      },
+      {
+        "type": "words",
+        "max": 7,
+        "dimension": "Instruction adherence"
+      }
+    ],
+    "baseline": "Study for a while today, take regular breaks, and prepare your notes carefully.",
+    "improved": "Study today and review your notes.",
+    "id": "sample-16",
+    "split": "holdout",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Tool schema",
+    "task": "Represent a weather tool call for Chennai using JSON with tool=\"weather\" and city=\"Chennai\".",
+    "checks": [
+      {
+        "type": "json",
+        "fields": {
+          "tool": "weather",
+          "city": "Chennai"
+        },
+        "keys": [
+          "tool",
+          "city"
+        ],
+        "dimension": "Response format"
+      }
+    ],
+    "baseline": "{\"tool\":\"weather\",\"location\":\"Chennai\"}",
+    "improved": "{\"tool\":\"weather\",\"city\":\"Chennai\"}",
+    "id": "sample-17",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Planner control",
+    "task": "Plan researching a topic as JSON with a steps array. Use at most 3 distinct string steps.",
+    "checks": [
+      {
+        "type": "unique_steps",
+        "max": 3,
+        "dimension": "Planner control"
+      }
+    ],
+    "baseline": "{\"steps\":[\"Search topic\",\"Search topic\",\"Search topic\"]}",
+    "improved": "{\"steps\":[\"Search topic\",\"Compare reliable sources\",\"Summarize findings\"]}",
+    "id": "sample-18",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Context retention",
+    "task": "User constraint: vegetarian lunch. Suggest a lunch containing lentils, using at most 8 words.",
+    "checks": [
+      {
+        "type": "contains",
+        "value": "lentils",
+        "dimension": "Context retention"
+      },
+      {
+        "type": "words",
+        "max": 8,
+        "dimension": "Instruction adherence"
+      }
+    ],
+    "baseline": "Try a chicken sandwich.",
+    "improved": "Try lentils with rice and vegetables.",
+    "id": "sample-19",
+    "split": "train",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  },
+  {
+    "category": "Planner control",
+    "task": "Plan proofreading as JSON with a steps array; at most 3 distinct string steps.",
+    "checks": [
+      {
+        "type": "unique_steps",
+        "max": 3,
+        "dimension": "Planner control"
+      }
+    ],
+    "baseline": "{\"steps\":[\"Read draft\",\"Fix mistakes\",\"Review\"]}",
+    "improved": "{\"steps\":[\"Read draft\",\"Fix mistakes\",\"Review\"]}",
+    "id": "sample-20",
+    "split": "holdout",
+    "provenance": "Synthetic, hand-authored demonstration fixture. Not a model-generated result."
+  }
+]
