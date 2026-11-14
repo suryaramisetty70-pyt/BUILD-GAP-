@@ -31,3 +31,37 @@ test('bad empty truncated and unreachable provider responses never produce succe
 test('public workspaces do not reuse or expose prior authenticated private records',async()=>{const h=await setup();h.store.db.exec("CREATE TABLE workspaces(owner TEXT, dataset TEXT)");h.store.db.prepare('INSERT INTO workspaces VALUES(?,?)').run('private-owner','private-content');assert(!(JSON.stringify(await h.get())).includes('private-content'));h.store.close();});
 
 test('concurrent tabs cannot process the same live step twice',async()=>{const h=await setup();const{job}=await(await h.start()).json();h.provider('slow');const body={action:'step_live',id:job.id,expectedStep:0,apiKey:'fake-test-only-123'};const responses=await Promise.all([h.request(body),h.request(body)]);assert.deepEqual(responses.map(r=>r.status).sort(),[200,409]);assert.equal(h.calls.length,1);h.store.close();});
+
+test('baseline collection uses only live training calls and supplies saved patch evidence', async t => {
+ const h = await setup();
+ t.after(() => h.store.close());
+ await h.seed();
+ const apiKey = 'fake-test-only-123';
+ const start = await h.post({
+  action: 'start_live', baselineOnly: true, apiKey, model: 'test-model',
+  requestId: 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb', baselineId: 'v1', improvedId: 'v1'
+ });
+ assert.equal(start.status, 201);
+ const {job} = await start.json();
+ assert.equal(job.total, 3);
+ assert.equal(job.cases[0].baseline, undefined);
+ const step = expectedStep => h.post({action: 'step_live', id: job.id, expectedStep, apiKey});
+ assert.equal((await step(0)).status, 200);
+ assert.equal((await h.get()).jobs[0].baselineOnly, true);
+ assert.equal((await step(1)).status, 200);
+ const finished = await (await step(2)).json();
+ assert.equal(finished.job.status, 'complete');
+ assert.equal(finished.report, undefined);
+ assert.equal((await step(3)).status, 200);
+ assert.equal(h.calls.length, 3);
+ assert.deepEqual(h.calls.map(call => JSON.parse(call.options.body).messages[1].content),
+  SAMPLE_CASES.slice(0, 3).map(c => c.task));
+ await h.post({action: 'import', dataset: []});
+ const state = await h.get();
+ assert.equal(state.runs.length, 0);
+ assert.equal(state.jobs.length, 0);
+ assert.equal(state.baselineEvidence.pairs.length, 3);
+ const patch = await h.post({action: 'suggest', jobId: job.id, prompt: 'Answer.'});
+ assert.equal(patch.status, 200);
+ assert.match((await patch.json()).prompt, /Verify the final answer/);
+});
