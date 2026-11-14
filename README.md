@@ -56,10 +56,10 @@ Environment options are documented in `.env.example`. The server reads its proce
 4. For live runs, enter a Groq key under **AI connection**, click **Test API connection**, and select an available chat model.
 5. Choose **Run evaluation → Collect live baseline training responses**. Select your baseline prompt and run it. GapLab sends one call per training task, saves each answer, and opens **Prompt studio** when complete. Holdout tasks are excluded from this collection.
 6. Review the training failures, click **Suggest patch**, edit the draft if needed, and **Save version**. To use a previously selected paired report instead, clear **Use latest live baseline evidence**.
-7. Choose **Run evaluation → Generate live responses with Groq**. Select the original baseline and the saved candidate. Each task is run under both prompts using the same model and settings. If interrupted, re-enter your key and resume from **Experiments**.
+7. Choose **Run evaluation → Generate live responses with Groq**. Select the original baseline and the saved candidate. Each task is run under both prompts using the same model and settings. If interrupted, resume from **Experiments**. Enter the key again if you opened a new tab without saved connection settings.
 8. Inspect **Gap explorer** for training and holdout scores, recoveries, regressions, and case evidence. Export JSON reports, CSV evidence, and datasets. Experiments also supports moving reports to Trash and restoring them.
 
-The Groq key exists in page memory only. It is sent over HTTPS to the backend for provider requests and never saved in reports or the database. Reloading clears it. Live requests use your provider quota. No shared paid key or working AI credential is included in this public repository.
+The Groq key and selected model are kept in browser session storage so they survive refreshes in the same tab. Clear the API key field to remove the saved connection. The key is sent over HTTPS for provider requests and is never saved with reports or in the database. Live requests use your provider quota. No shared paid key or working AI credential is included in this public repository.
 
 ## Verification
 
