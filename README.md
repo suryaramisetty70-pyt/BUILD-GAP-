@@ -53,11 +53,11 @@ Environment options are documented in `.env.example`. The server reads its proce
 1. Open **Datasets** and add your tasks. A draft can contain one task; evaluation needs at least one training and one holdout task.
 2. Define expected outcomes. Quick add supports an exact-answer check; **Edit checks as JSON** supports multiple checks, JSON fields/types, required text, word bounds and unique plan steps. Example schemas are in `data/` and `docs/EVALUATION.md`.
 3. For existing outputs, enter both responses or use manual mode. For live outputs, leave responses empty.
-4. Open **Prompt studio**, edit the system instructions and save a distinct candidate version.
-5. For live mode, enter a **Groq API key** in **AI connection**. **Test API connection** verifies the key and lists provider model IDs without generating a chat response. Choose a chat-capable model.
-6. Run a paired evaluation. Live mode sends one provider call per step and checkpoints each response. Pause after the current response, or resume interrupted work from **Experiments**. The same model, task, temperature and token limit are used for both prompts.
-7. Inspect **Gap explorer**, including recovered failures and regressions. Suggestions in Prompt studio use the baseline training outputs of the selected saved report, even if the current dataset has changed.
-8. Export JSON reports, CSV evidence and datasets. Reports moved to trash can be restored from Experiments.
+4. For live runs, enter a Groq key under **AI connection**, click **Test API connection**, and select an available chat model.
+5. Choose **Run evaluation → Collect live baseline training responses**. Select your baseline prompt and run it. GapLab sends one call per training task, saves each answer, and opens **Prompt studio** when complete. Holdout tasks are excluded from this collection.
+6. Review the training failures, click **Suggest patch**, edit the draft if needed, and **Save version**. To use a previously selected paired report instead, clear **Use latest live baseline evidence**.
+7. Choose **Run evaluation → Generate live responses with Groq**. Select the original baseline and the saved candidate. Each task is run under both prompts using the same model and settings. If interrupted, re-enter your key and resume from **Experiments**.
+8. Inspect **Gap explorer** for training and holdout scores, recoveries, regressions, and case evidence. Export JSON reports, CSV evidence, and datasets. Experiments also supports moving reports to Trash and restoring them.
 
 The Groq key exists in page memory only. It is sent over HTTPS to the backend for provider requests and never saved in reports or the database. Reloading clears it. Live requests use your provider quota. No shared paid key or working AI credential is included in this public repository.
 
