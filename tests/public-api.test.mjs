@@ -65,3 +65,15 @@ test('baseline collection uses only live training calls and supplies saved patch
  assert.equal(patch.status, 200);
  assert.match((await patch.json()).prompt, /Verify the final answer/);
 });
+
+test('an evaluation cannot submit a superseded workspace revision', async t => {
+ const h = await setup();
+ t.after(() => h.store.close());
+ await h.seed();
+ const {revision} = await h.get();
+ await h.post({action:'import',dataset:[]});
+ const response = await h.request({action:'run',mode:'replay',revision,baselineId:'v1',improvedId:'v1'});
+ assert.equal(response.status,409);
+ assert.match((await response.json()).error,/reopen the evaluation/);
+ assert.equal((await h.get()).runs.length,0);
+});
